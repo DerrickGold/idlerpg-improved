@@ -166,6 +166,8 @@ if (! -e $opts{dbfile}) {
     $rps{$uname}{y} = int(rand($opts{mapy}));
     $rps{$uname}{alignment}="n";
     $rps{$uname}{isadmin} = 1;
+    $rps{$uname}{win} = 0;
+    $rps{$uname}{loss} = 0;
     for my $item ("ring","amulet","charm","weapon","helm",
                   "tunic","pair of gloves","shield",
                   "set of leggings","pair of boots") {
