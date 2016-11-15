@@ -1239,8 +1239,7 @@ sub rpcheck { # check levels, update database
             # attempt to make sure this is an actual user, and not just an
             # artifact of a bad PEVAL
         }
-        #if (!$pausemode && $rpreport%60==0) { writedb(); }
-        if (!$pausemode) { writedb(); }
+        if (!$pausemode && $rpreport%60==0) { writedb(); }
         $rpreport += $opts{self_clock};
         $lasttime = $curtime;
     }
@@ -1749,7 +1748,8 @@ sub itemsum {
     my $sum = 0;
     if ($user eq $primnick) {
         for my $u (keys(%rps)) {
-            $sum = itemsum($u) if $sum < itemsum($u);
+            #prevent infinite recursion by calculating itself
+            $sum = itemsum($u) if $u ne $primnick && $sum < itemsum($u);
         }
         return $sum+1;
     }
